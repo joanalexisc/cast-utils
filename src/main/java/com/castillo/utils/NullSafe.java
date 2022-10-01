@@ -13,10 +13,6 @@ public class NullSafe<T> {
         return Objects.requireNonNullElseGet(value, getDefault);
     }
 
-    public static <T> T or(T value, T defaultValue) {
-        return value != null ? value : defaultValue;
-    }
-
     public static <T> NullSafe<T> of(T obj){
         return new NullSafe<T>(obj);
     }
@@ -36,7 +32,7 @@ public class NullSafe<T> {
     }
 
     public T or(T defaultValue){
-        return NullSafe.or(this.value, defaultValue);
+        return ObjectUtils.or(this.value, defaultValue);
     }
 
     public boolean isNull(){

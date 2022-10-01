@@ -18,14 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class NullSafeTest {
 
     @Test
-    void or() {
-        String value = "test";
-        String defaultValue = "default";
-        assertEquals(value, NullSafe.or(value, defaultValue));
-        assertEquals(defaultValue, NullSafe.or(null, defaultValue));
-    }
-
-    @Test
     void orGet() {
         final String defaultValue = "default";
         String value = "test";
