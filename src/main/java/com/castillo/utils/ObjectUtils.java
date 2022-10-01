@@ -54,4 +54,15 @@ public final class ObjectUtils {
     public static boolean areNotNull(Object... objects) {
         return Stream.of(objects).allMatch(Objects::nonNull);
     }
+
+    public static <T> T or(T value, T defaultValue) {
+        return value != null ? value : defaultValue;
+    }
+    public static  <T> T or(boolean value, T trueValue, T falseValue){
+        return value ? trueValue : falseValue;
+    }
+
+    public static  <T> T orGet(boolean value, Supplier<T> trueSupplier, Supplier<T> falseSupplier){
+        return value ? trueSupplier.get() : falseSupplier.get();
+    }
 }

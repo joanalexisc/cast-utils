@@ -16,6 +16,30 @@ import static org.junit.jupiter.api.Assertions.*;
 class ObjectUtilsTest {
 
     @Test
+    void or() {
+        String value = "test";
+        String defaultValue = "default";
+        assertEquals(value, ObjectUtils.or(value, defaultValue));
+        assertEquals(defaultValue, ObjectUtils.or(null, defaultValue));
+    }
+
+    @Test
+    void orWithBoolean() {
+        String trueValue = "Y";
+        String falseValue = "N";
+        assertEquals(trueValue, ObjectUtils.or(true, trueValue, falseValue));
+        assertEquals(falseValue, ObjectUtils.or(false, trueValue, falseValue));
+    }
+
+    @Test
+    void orGet(){
+        Supplier<String> trueSupplier = () -> "Y";
+        Supplier<String> falseSupplier = () -> "N";
+        assertEquals("Y", ObjectUtils.orGet(true, trueSupplier, falseSupplier));
+        assertEquals("N", ObjectUtils.orGet(false, trueSupplier, falseSupplier));
+    }
+
+    @Test
     void consumeWithSupplier() {
         Supplier<String> supplier = ()-> "1.0.0";
         USB usb = new USB();
