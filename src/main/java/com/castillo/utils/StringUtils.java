@@ -19,7 +19,7 @@ public class StringUtils {
     }
 
     public static boolean isNullOrEmpty(String str){
-        return isNull(str) || EMPTY_STRING.equals(str.trim());
+        return isNull(str) || str.trim().isEmpty();
     }
 
     public static void lowerCaseField(Supplier<String> from, Consumer<String> to){

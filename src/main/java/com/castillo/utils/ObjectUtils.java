@@ -1,11 +1,15 @@
 package com.castillo.utils;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
+
+import static java.util.Objects.isNull;
 
 public final class ObjectUtils {
     private ObjectUtils() {
@@ -58,11 +62,28 @@ public final class ObjectUtils {
     public static <T> T or(T value, T defaultValue) {
         return value != null ? value : defaultValue;
     }
+    public static <T> T or(T value, Supplier<T> defaultSupplier) {
+        return value != null ? value : defaultSupplier.get();
+    }
     public static  <T> T or(boolean value, T trueValue, T falseValue){
         return value ? trueValue : falseValue;
     }
 
     public static  <T> T orGet(boolean value, Supplier<T> trueSupplier, Supplier<T> falseSupplier){
         return value ? trueSupplier.get() : falseSupplier.get();
+    }
+
+    public static boolean isEmpty(Collection<?> collection){
+        return isNull(collection) || collection.isEmpty();
+    }
+
+    public static boolean notEmpty(Collection<?> collection){
+        return !isEmpty(collection);
+    }
+    public static boolean isEmpty(String value){
+        return isNull(value) || value.trim().isEmpty();
+    }
+    public static boolean notEmpty(String value){
+        return !isEmpty(value);
     }
 }

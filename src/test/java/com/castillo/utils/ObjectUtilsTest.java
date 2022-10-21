@@ -6,6 +6,10 @@ import com.castillo.utils.pojos.TestObj;
 import com.castillo.utils.pojos.USB;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -21,6 +25,13 @@ class ObjectUtilsTest {
         String defaultValue = "default";
         assertEquals(value, ObjectUtils.or(value, defaultValue));
         assertEquals(defaultValue, ObjectUtils.or(null, defaultValue));
+    }
+
+    @Test
+    void orWithSupplier() {
+        List<String> list = null;
+        list = ObjectUtils.or(list, ArrayList::new);
+        assertNotNull(list);
     }
 
     @Test
@@ -105,5 +116,37 @@ class ObjectUtilsTest {
     void areNotNull() {
         assertTrue(ObjectUtils.areNotNull("",1,"A",2L, 3D));
         assertFalse(ObjectUtils.areNotNull("",1,"A",2L, 3D, null));
+    }
+
+    @Test
+    void isEmptyCollection() {
+        List<String> list = null;
+        assertTrue(ObjectUtils.isEmpty(list));
+        list = new ArrayList<>();
+        assertTrue(ObjectUtils.isEmpty(list));
+        list.add("");
+        assertFalse(ObjectUtils.isEmpty(list));
+    }
+
+    @Test
+    void notEmptyCollection() {
+        assertTrue(ObjectUtils.notEmpty(Arrays.asList("a","b")));
+        assertFalse(ObjectUtils.notEmpty(new ArrayList<>()));
+    }
+
+    @Test
+    void isEmptyString() {
+        String value = null;
+        assertTrue(ObjectUtils.isEmpty(value));
+        assertTrue(ObjectUtils.isEmpty(""));
+        assertTrue(ObjectUtils.isEmpty("    "));
+        value = "ABC";
+        assertFalse(ObjectUtils.isEmpty(value));
+    }
+
+    @Test
+    void notEmptyString() {
+        assertTrue(ObjectUtils.notEmpty("ABC"));
+        assertFalse(ObjectUtils.notEmpty("   "));
     }
 }
